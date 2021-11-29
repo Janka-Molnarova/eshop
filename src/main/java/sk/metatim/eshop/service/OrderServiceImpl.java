@@ -1,13 +1,18 @@
 package sk.metatim.eshop.service;
 
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sk.metatim.eshop.dto.OrderRequestDTO;
+import sk.metatim.eshop.dto.OrderResponseDTO;
+import sk.metatim.eshop.persistence.Item;
 import sk.metatim.eshop.persistence.ItemRepository;
 import sk.metatim.eshop.persistence.Order;
 import sk.metatim.eshop.persistence.OrderRepository;
 import sk.metatim.eshop.utils.OrderConverter;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -21,14 +26,44 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     OrderConverter orderConverter;
 
-    @Override
-    public void addOrder(OrderRequestDTO orderRequestDTO) {
-        orderRequestDTO.getOrderedIds().stream()
+    public static final String ORDER_OK = "OK";
+    public static final String ORDER_NOT_ITEMS = "not enough items";
 
+    @Override
+    public OrderResponseDTO addOrder(OrderRequestDTO orderRequestDTO) {
+
+        Map<String, Integer> orderMap = new HashMap<>();
+        for (String item : orderRequestDTO.getOrderedItemNames()) {
+            if (orderMap.containsKey(item)) {
+                orderMap.put(item, orderMap.get(item) + 1);
+            } else {
+                orderMap.put(item, 1);
+            }
+        }
+
+        AtomicBoolean allItemsPresent = new AtomicBoolean(true);
+        orderMap.forEach((key, value) -> {
+            Item itemFromDb = itemRepository.findByName(key);
+            if (itemFromDb.getItemCount() >= value) {
+                allItemsPresent.set(false);
+            }
+        });
 
         Order order = orderConverter.convertDtoToEntity(orderRequestDTO);
-        order.getItems()
 
+        if (allItemsPresent.get()) {
+
+            order.setSuccess(true);
+            order.setMessage(ORDER_OK);
+            orderRepository.save(order);
+            return orderConverter.convertEntityToDto(order);
+
+        } else {
+
+            order.setSuccess(false);
+            order.setMessage(ORDER_NOT_ITEMS);
+            return orderConverter.convertEntityToDto(order);
+        }
     }
 
     @Override

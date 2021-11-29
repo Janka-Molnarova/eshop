@@ -4,6 +4,7 @@ package sk.metatim.eshop.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import sk.metatim.eshop.dto.OrderRequestDTO;
+import sk.metatim.eshop.dto.OrderResponseDTO;
 import sk.metatim.eshop.service.OrderService;
 
 @RestController
@@ -13,8 +14,8 @@ public class OrderController {
     public OrderService eshopService;
 
     @PostMapping(value = "/addOrder")
-    public void addOrder(OrderRequestDTO orderRequestDTO) {
-        eshopService.addOrder(orderRequestDTO);
+    public OrderResponseDTO addOrder(OrderRequestDTO orderRequestDTO) {
+        return eshopService.addOrder(orderRequestDTO);
     }
 
     @GetMapping(value = "/getOrder/{orderID}")

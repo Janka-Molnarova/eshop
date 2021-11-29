@@ -1,12 +1,13 @@
 package sk.metatim.eshop.service;
 
 import sk.metatim.eshop.dto.OrderRequestDTO;
+import sk.metatim.eshop.dto.OrderResponseDTO;
 
 import java.util.List;
 
 public interface OrderService {
 
-    public void addOrder(OrderRequestDTO orderRequestDTO);
+    public OrderResponseDTO addOrder(OrderRequestDTO orderRequestDTO);
 
     public OrderRequestDTO getOrdersOfUser(String orderID);
 

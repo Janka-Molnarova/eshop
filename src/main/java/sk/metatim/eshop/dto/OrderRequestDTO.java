@@ -11,5 +11,5 @@ public class OrderRequestDTO {
 
     private String orderID;
     private String customerID;
-    private List<String> orderedIds;
+    private List<String> orderedItemNames;
 }
