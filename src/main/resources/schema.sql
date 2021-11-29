@@ -1,0 +1,7 @@
+CREATE TABLE items (
+    id LONG NOT NULL AUTO_INCREMENT,
+    name VARCHAR(128) NOT NULL,
+    price DOUBLE NOT NULL,
+    item_count INT NOT NULL,
+    PRIMARY KEY (id)
+);
