@@ -29,7 +29,7 @@ public class OrderController {
 
     @PostMapping(value = "/deleteOrder/{orderID}")
     public void deleteOrder(@PathVariable String orderID) {
-        eshopService.getOrdersOfUser(orderID);
+        eshopService.deleteOrder(orderID);
     }
 
 

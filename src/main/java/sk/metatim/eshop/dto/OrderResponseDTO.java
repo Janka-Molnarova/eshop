@@ -12,4 +12,9 @@ public class OrderResponseDTO {
     boolean success;
     String message;
     double price;
+    String orderID;
+
+    public OrderResponseDTO() {
+
+    }
 }
