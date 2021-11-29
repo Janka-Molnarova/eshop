@@ -17,6 +17,8 @@ public class Order {
     @GeneratedValue
     Long id;
 
+    boolean success;
+
     @Column(name = "order_id")
     private String orderId;
 
