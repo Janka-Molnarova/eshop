@@ -1,16 +1,19 @@
 package sk.metatim.eshop.utils;
 
+import org.springframework.stereotype.Component;
 import sk.metatim.eshop.dto.OrderRequestDTO;
 import sk.metatim.eshop.dto.OrderResponseDTO;
 import sk.metatim.eshop.persistence.Order;
 
+@Component
 public class OrderConverter {
 
     public Order convertDtoToEntity(OrderRequestDTO dto) {
         Order order = new Order();
         order.setOrderId(dto.getOrderID());
         order.setCustomerId(dto.getCustomerID());
-        order.setItems(dto.getOrderedIds().);
+        order.setItems(String.join(",", dto.getOrderedIds()));
+        return order;
     }
 
     public OrderResponseDTO convertEntityToDto(Order order) {
@@ -19,9 +22,8 @@ public class OrderConverter {
         dto.setMessage(order.getMessage());
         dto.setOrderID(order.getOrderId());
         dto.setPrice(order.getPrice());
+        return dto;
     }
-
-
 
 
 }
