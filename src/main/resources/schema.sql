@@ -11,6 +11,7 @@ CREATE TABLE orders
 (
     id          LONG          NOT NULL AUTO_INCREMENT,
     success     BOOLEAN       NOT NULL,
+    message     VARCHAR(128)  NOT NULL,
     order_id    VARCHAR(64)   NOT NULL,
     customer_id VARCHAR(64)   NOT NULL,
     items       VARCHAR(1024) NOT NULL,

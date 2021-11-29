@@ -19,6 +19,8 @@ public class Order {
 
     boolean success;
 
+    String message;
+
     @Column(name = "order_id")
     private String orderId;
 
