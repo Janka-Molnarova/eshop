@@ -12,7 +12,7 @@ public class OrderConverter {
         Order order = new Order();
         order.setOrderId(dto.getOrderID());
         order.setCustomerId(dto.getCustomerID());
-        order.setItems(String.join(",", dto.getOrderedIds()));
+        order.setItems(dto.getOrderedItems());
         return order;
     }
 

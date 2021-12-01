@@ -3,8 +3,6 @@ package sk.metatim.eshop.service;
 import sk.metatim.eshop.dto.OrderRequestDTO;
 import sk.metatim.eshop.dto.OrderResponseDTO;
 
-import java.util.List;
-
 public interface OrderService {
 
     public OrderResponseDTO addOrder(OrderRequestDTO orderRequestDTO);

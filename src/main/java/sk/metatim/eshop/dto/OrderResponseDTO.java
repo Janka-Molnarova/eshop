@@ -3,6 +3,7 @@ package sk.metatim.eshop.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import sk.metatim.eshop.helper.OrderResponseMessage;
 
 @Getter
 @Setter
@@ -10,7 +11,7 @@ import lombok.Setter;
 public class OrderResponseDTO {
 
     boolean success;
-    String message;
+    OrderResponseMessage message;
     double price;
     String orderID;
 

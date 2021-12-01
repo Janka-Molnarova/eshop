@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.Map;
 
 @Entity
 @Getter
@@ -27,7 +28,8 @@ public class Order {
     @Column(name = "customer_id")
     private String customerId;
 
-    private String items;
+    @Convert(converter = OrderedItemsConverter.class)
+    private Map<String, Integer> items;
 
     private Double price;
 }

@@ -4,15 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sk.metatim.eshop.dto.OrderRequestDTO;
 import sk.metatim.eshop.dto.OrderResponseDTO;
+import sk.metatim.eshop.helper.OrderResponseMessage;
 import sk.metatim.eshop.persistence.Item;
 import sk.metatim.eshop.persistence.ItemRepository;
 import sk.metatim.eshop.persistence.Order;
 import sk.metatim.eshop.persistence.OrderRepository;
 import sk.metatim.eshop.utils.OrderConverter;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -26,58 +27,88 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     OrderConverter orderConverter;
 
-    public static final String ORDER_OK = "OK";
-    public static final String ORDER_NOT_ITEMS = "not enough items";
-
     @Override
     public OrderResponseDTO addOrder(OrderRequestDTO orderRequestDTO) {
 
-        Map<String, Integer> orderMap = new HashMap<>();
-        for (String item : orderRequestDTO.getOrderedItemNames()) {
-            if (orderMap.containsKey(item)) {
-                orderMap.put(item, orderMap.get(item) + 1);
-            } else {
-                orderMap.put(item, 1);
-            }
+        //check if items are available
+        Map<String, Integer> itemsNotPresent = orderRequestDTO.getOrderedItems().entrySet().stream()
+                .map(e -> {
+                    Item dbItem = itemRepository.findByName(e.getKey());
+                    if (e.getValue() > dbItem.getItemCount()) {
+                        e.setValue(dbItem.getItemCount());
+                        return e;
+                    } else {
+                        return null;
+                    }
+                })
+                .filter(Objects::nonNull)
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue
+                ));
+
+        OrderResponseDTO response = new OrderResponseDTO();
+        response.setOrderID(orderRequestDTO.getOrderID());
+
+        //some items are not present
+        if (itemsNotPresent.entrySet().size() > 0) {
+
+            response.setSuccess(false);
+
+            OrderResponseMessage orm = new OrderResponseMessage();
+            orm.setMessage(OrderResponseMessage.NOT_ENOUGH_ITEMS);
+            orm.setDetails(orm.mapObjectoJson(itemsNotPresent));
+            response.setMessage(orm);
+
+        } else { //everything is available
+
+            response.setSuccess(true);
+
+            response.setMessage(OrderResponseMessage.getOK());
+            double price = orderRequestDTO.getOrderedItems().entrySet().stream()
+                    .mapToDouble(e -> {
+                        Item dbItem = itemRepository.findByName(e.getKey());
+                        dbItem.setItemCount(dbItem.getItemCount() - e.getValue());
+                        itemRepository.save(dbItem);
+                        return e.getValue() * dbItem.getPrice();
+                    })
+                    .sum();
+            response.setPrice(price);
         }
 
-        AtomicBoolean allItemsPresent = new AtomicBoolean(true);
-        orderMap.forEach((key, value) -> {
-            Item itemFromDb = itemRepository.findByName(key);
-            if (itemFromDb.getItemCount() >= value) {
-                allItemsPresent.set(false);
-            }
-        });
+        //store order
+        storeOrder(response, orderRequestDTO);
 
-        Order order = orderConverter.convertDtoToEntity(orderRequestDTO);
-
-        if (allItemsPresent.get()) {
-
-            order.setSuccess(true);
-            order.setMessage(ORDER_OK);
-            orderRepository.save(order);
-            return orderConverter.convertEntityToDto(order);
-
-        } else {
-
-            order.setSuccess(false);
-            order.setMessage(ORDER_NOT_ITEMS);
-            return orderConverter.convertEntityToDto(order);
-        }
+        //return response
+        return response;
     }
 
     @Override
     public OrderRequestDTO getOrdersOfUser(String orderID) {
+        //todo: impl
         return null;
     }
 
     @Override
     public void updateOrder(String orderID, OrderRequestDTO orderRequestDTO) {
-
+        //todo: impl
     }
 
     @Override
     public void deleteOrder(String orderID) {
+        //todo: impl
+    }
 
+    private void storeOrder(OrderResponseDTO response, OrderRequestDTO request) {
+
+        Order order = new Order();
+        order.setOrderId(response.getOrderID());
+        order.setSuccess(response.isSuccess());
+        order.setMessage(response.getMessage().getMessage());
+        order.setCustomerId(request.getCustomerID());
+        order.setPrice(response.getPrice());
+        order.setItems(request.getOrderedItems());
+
+        orderRepository.save(order);
     }
 }
