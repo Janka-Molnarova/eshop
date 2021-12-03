@@ -10,10 +10,10 @@ import sk.metatim.eshop.helper.OrderResponseMessage;
 @AllArgsConstructor
 public class OrderResponseDTO {
 
+    String orderID;
     boolean success;
     OrderResponseMessage message;
     double price;
-    String orderID;
 
     public OrderResponseDTO() {
 
