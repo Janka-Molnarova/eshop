@@ -1,8 +1,9 @@
-package sk.metatim.eshop.persistence;
+package sk.metatim.eshop.persistence.order;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import sk.metatim.eshop.helper.OrderResponseMessage;
 
 import javax.persistence.*;
 import java.util.Map;
@@ -20,7 +21,8 @@ public class Order {
 
     boolean success;
 
-    String message;
+    @Convert(converter = OrderMessageConverter.class)
+    OrderResponseMessage message;
 
     @Column(name = "order_id")
     private String orderId;

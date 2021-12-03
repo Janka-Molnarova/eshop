@@ -1,4 +1,4 @@
-package sk.metatim.eshop.persistence;
+package sk.metatim.eshop.persistence.item;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

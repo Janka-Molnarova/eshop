@@ -5,10 +5,10 @@ import org.springframework.stereotype.Service;
 import sk.metatim.eshop.dto.OrderRequestDTO;
 import sk.metatim.eshop.dto.OrderResponseDTO;
 import sk.metatim.eshop.helper.OrderResponseMessage;
-import sk.metatim.eshop.persistence.Item;
-import sk.metatim.eshop.persistence.ItemRepository;
-import sk.metatim.eshop.persistence.Order;
-import sk.metatim.eshop.persistence.OrderRepository;
+import sk.metatim.eshop.persistence.item.Item;
+import sk.metatim.eshop.persistence.item.ItemRepository;
+import sk.metatim.eshop.persistence.order.Order;
+import sk.metatim.eshop.persistence.order.OrderRepository;
 import sk.metatim.eshop.utils.OrderConverter;
 
 import java.util.Map;
@@ -104,7 +104,7 @@ public class OrderServiceImpl implements OrderService {
         Order order = new Order();
         order.setOrderId(response.getOrderID());
         order.setSuccess(response.isSuccess());
-        order.setMessage(response.getMessage().getMessage());
+        order.setMessage(response.getMessage());
         order.setCustomerId(request.getCustomerID());
         order.setPrice(response.getPrice());
         order.setItems(request.getOrderedItems());
