@@ -32,6 +32,21 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderResponseDTO addOrder(OrderRequestDTO orderRequestDTO) {
 
+        OrderResponseDTO response = new OrderResponseDTO();
+        response.setOrderID(orderRequestDTO.getOrderID());
+
+        //duplicate order
+        if(orderRepository.findByOrderId(orderRequestDTO.getOrderID()) != null){
+
+            response.setSuccess(false);
+
+            OrderResponseMessage orm = new OrderResponseMessage();
+            orm.setMessage(OrderResponseMessage.DUPLICATE_ORDER);
+            response.setMessage(orm);
+
+            return response;
+        }
+
         //check if items are available
         Map<String, Integer> itemsNotPresent = orderRequestDTO.getOrderedItems().entrySet().stream()
                 .map(e -> {
@@ -51,9 +66,6 @@ public class OrderServiceImpl implements OrderService {
                         Map.Entry::getKey,
                         Map.Entry::getValue
                 ));
-
-        OrderResponseDTO response = new OrderResponseDTO();
-        response.setOrderID(orderRequestDTO.getOrderID());
 
         //some items are not present
         if (itemsNotPresent.entrySet().size() > 0) {

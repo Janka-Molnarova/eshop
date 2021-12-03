@@ -13,6 +13,7 @@ public class OrderResponseMessage {
 
     public static final String OK = "OK";
     public static final String NOT_ENOUGH_ITEMS = "Not enough items.";
+    public static final String DUPLICATE_ORDER = "Order already exists.";
 
     private String message;
     private String details;
