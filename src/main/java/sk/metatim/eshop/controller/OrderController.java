@@ -22,7 +22,7 @@ public class OrderController {
     //        }
     //    }
     @PostMapping(value = "/addOrder")
-    public OrderResponseDTO addOrder(OrderRequestDTO orderRequestDTO) {
+    public OrderResponseDTO addOrder(@RequestBody OrderRequestDTO orderRequestDTO) {
         return eshopService.addOrder(orderRequestDTO);
     }
 
