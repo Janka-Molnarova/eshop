@@ -34,7 +34,10 @@ public class OrderServiceImpl implements OrderService {
         Map<String, Integer> itemsNotPresent = orderRequestDTO.getOrderedItems().entrySet().stream()
                 .map(e -> {
                     Item dbItem = itemRepository.findByName(e.getKey());
-                    if (e.getValue() > dbItem.getItemCount()) {
+                    if (dbItem == null) { //non-existing item
+                        e.setValue(0);
+                        return e;
+                    } else if (e.getValue() > dbItem.getItemCount()) {
                         e.setValue(dbItem.getItemCount());
                         return e;
                     } else {
