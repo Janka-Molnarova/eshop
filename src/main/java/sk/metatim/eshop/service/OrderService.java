@@ -8,7 +8,7 @@ public interface OrderService {
 
     public OrderResponseDTO addOrder(OrderRequestDTO orderRequestDTO);
 
-    public GetOrderResponseDTO getOrdersOfUser(String orderID);
+    public GetOrderResponseDTO getOrder(String orderID);
 
     public boolean updateOrder(String orderID, OrderRequestDTO orderRequestDTO);
 
