@@ -14,13 +14,13 @@ public class OrderController {
     public OrderService eshopService;
 
     //    {
-//        "orderId": "e3ae6e1a-b596-4386-82f0-071ff037dbd9",
-//        "customerId": "b7654084-676b-4ce3-993f-5457b8cdf6b3",
-//        "orderedItems": {
-//            "ponozky": 3,
-//            "tricko": 1
-//        }
-//    }
+    //        "orderId": "e3ae6e1a-b596-4386-82f0-071ff037dbd9",
+    //        "customerId": "b7654084-676b-4ce3-993f-5457b8cdf6b3",
+    //        "orderedItems": {
+    //            "ponozky": 3,
+    //            "tricko": 1
+    //        }
+    //    }
     @PostMapping(value = "/addOrder")
     public OrderResponseDTO addOrder(OrderRequestDTO orderRequestDTO) {
         return eshopService.addOrder(orderRequestDTO);
