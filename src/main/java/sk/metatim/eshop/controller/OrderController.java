@@ -3,6 +3,7 @@ package sk.metatim.eshop.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import sk.metatim.eshop.dto.GetOrderResponseDTO;
 import sk.metatim.eshop.dto.OrderRequestDTO;
 import sk.metatim.eshop.dto.OrderResponseDTO;
 import sk.metatim.eshop.service.OrderService;
@@ -27,7 +28,7 @@ public class OrderController {
     }
 
     @GetMapping(value = "/getOrder/{orderID}")
-    public OrderRequestDTO getOrder(@PathVariable String orderID) {
+    public GetOrderResponseDTO getOrder(@PathVariable String orderID) {
         return eshopService.getOrdersOfUser(orderID);
     }
 

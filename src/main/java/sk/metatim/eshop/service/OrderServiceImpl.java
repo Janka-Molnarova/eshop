@@ -2,6 +2,7 @@ package sk.metatim.eshop.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sk.metatim.eshop.dto.GetOrderResponseDTO;
 import sk.metatim.eshop.dto.OrderRequestDTO;
 import sk.metatim.eshop.dto.OrderResponseDTO;
 import sk.metatim.eshop.helper.OrderResponseMessage;
@@ -13,6 +14,7 @@ import sk.metatim.eshop.utils.OrderConverter;
 
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -87,9 +89,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderRequestDTO getOrdersOfUser(String orderID) {
-        //todo: impl
-        return null;
+    public GetOrderResponseDTO getOrdersOfUser(String orderID) {
+        Long id = Long.parseLong(orderID);
+        Optional<Order> entity = orderRepository.findById(id);
+        return orderConverter.convertEntityToGetDTO(entity.get());
     }
 
     @Override
