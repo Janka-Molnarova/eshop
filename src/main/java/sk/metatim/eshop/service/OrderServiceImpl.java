@@ -93,8 +93,20 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void updateOrder(String orderID, OrderRequestDTO orderRequestDTO) {
-        //todo: impl
+    public boolean updateOrder(String orderID, OrderRequestDTO orderRequestDTO) {
+
+        Order order = orderRepository.findByOrderId(orderID);
+
+        if(order != null) {
+
+            OrderConverter converter = new OrderConverter();
+            order = converter.convertDtoToEntity(orderRequestDTO);
+
+            orderRepository.save(order);
+            return true;
+        }
+
+        return false;
     }
 
     @Override

@@ -9,7 +9,7 @@ public interface OrderService {
 
     public OrderRequestDTO getOrdersOfUser(String orderID);
 
-    public void updateOrder(String orderID, OrderRequestDTO orderRequestDTO);
+    public boolean updateOrder(String orderID, OrderRequestDTO orderRequestDTO);
 
     public void deleteOrder(String orderID);
 
