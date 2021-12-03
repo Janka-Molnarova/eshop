@@ -29,7 +29,7 @@ public class OrderController {
 
     @GetMapping(value = "/getOrder/{orderID}")
     public GetOrderResponseDTO getOrder(@PathVariable String orderID) {
-        return eshopService.getOrdersOfUser(orderID);
+        return eshopService.getOrder(orderID);
     }
 
     @PostMapping(value = "/updateOrder/{orderID}")

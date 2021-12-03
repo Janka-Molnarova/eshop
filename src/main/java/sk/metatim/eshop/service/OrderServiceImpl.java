@@ -14,7 +14,6 @@ import sk.metatim.eshop.utils.OrderConverter;
 
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -101,10 +100,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public GetOrderResponseDTO getOrdersOfUser(String orderID) {
-        Long id = Long.parseLong(orderID);
-        Optional<Order> entity = orderRepository.findById(id);
-        return orderConverter.convertEntityToGetDTO(entity.get());
+    public GetOrderResponseDTO getOrder(String orderID) {
+        Order entity = orderRepository.findByOrderId(orderID);
+        if (entity != null) {
+            return orderConverter.convertEntityToGetDTO(entity);
+        }
+        return null;
     }
 
     @Override
@@ -126,7 +127,10 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void deleteOrder(String orderID) {
-        //todo: impl
+        Order entity = orderRepository.findByOrderId(orderID);
+        if (entity != null) {
+            orderRepository.delete(entity);
+        }
     }
 
     private void storeOrder(OrderResponseDTO response, OrderRequestDTO request) {
