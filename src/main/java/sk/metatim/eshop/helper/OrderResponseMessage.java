@@ -5,11 +5,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class OrderResponseMessage {
+
+    private static Logger logger = LogManager.getLogger(OrderResponseMessage.class);
 
     public static final String OK = "OK";
     public static final String NOT_ENOUGH_ITEMS = "Not enough items.";
@@ -23,11 +27,13 @@ public class OrderResponseMessage {
     }
 
     public String mapObjectoJson(Object o) {
+
         ObjectMapper objectMapper = new ObjectMapper();
 
         try {
             return objectMapper.writeValueAsString(o);
         } catch (JsonProcessingException e) {
+            logger.error("Error mapping object to JSON: " + e.getMessage());
             e.printStackTrace();
         }
 

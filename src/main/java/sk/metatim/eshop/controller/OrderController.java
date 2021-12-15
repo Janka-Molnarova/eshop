@@ -1,6 +1,7 @@
 package sk.metatim.eshop.controller;
 
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import sk.metatim.eshop.dto.GetOrderResponseDTO;
@@ -10,6 +11,8 @@ import sk.metatim.eshop.service.OrderService;
 
 @RestController
 public class OrderController {
+
+    private static final Logger logger = LogManager.getLogger(OrderController.class);
 
     @Autowired
     public OrderService eshopService;
@@ -24,21 +27,58 @@ public class OrderController {
     //    }
     @PostMapping(value = "/addOrder")
     public OrderResponseDTO addOrder(@RequestBody OrderRequestDTO orderRequestDTO) {
-        return eshopService.addOrder(orderRequestDTO);
+
+        logger.info(String.format("Recieved request [%s][%s]",
+                "addOrder",
+                orderRequestDTO.toString()
+        ));
+
+        OrderResponseDTO response = eshopService.addOrder(orderRequestDTO);
+
+        logger.info(String.format("Returning response for request [%s][%s]",
+                "addOrder",
+                response.toString()
+        ));
+
+        return response;
     }
 
     @GetMapping(value = "/getOrder/{orderID}")
     public GetOrderResponseDTO getOrder(@PathVariable String orderID) {
-        return eshopService.getOrder(orderID);
+
+        logger.info(String.format("Recieved request [%s][%s]",
+                "getOrder",
+                orderID
+        ));
+
+        GetOrderResponseDTO response = eshopService.getOrder(orderID);
+
+        logger.info(String.format("Returning response for request [%s][%s]",
+                "getOrder",
+                response.toString()
+        ));
+
+        return response;
     }
 
     @PostMapping(value = "/updateOrder/{orderID}")
     public void updateOrder(@PathVariable String orderID, @RequestBody OrderRequestDTO orderRequestDTO) {
+
+        logger.info(String.format("Recieved request [%s][OrderId:%s][%s]",
+                "updateOrder",
+                orderID,
+                orderRequestDTO.toString()
+        ));
         eshopService.updateOrder(orderID, orderRequestDTO);
     }
 
     @PostMapping(value = "/deleteOrder/{orderID}")
     public void deleteOrder(@PathVariable String orderID) {
+
+        logger.info(String.format("Recieved request [%s][%s]",
+                "deleteOrder",
+                orderID
+        ));
         eshopService.deleteOrder(orderID);
     }
 
