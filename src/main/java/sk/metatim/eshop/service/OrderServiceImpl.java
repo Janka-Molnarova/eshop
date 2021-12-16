@@ -35,7 +35,7 @@ public class OrderServiceImpl implements OrderService {
         response.setOrderID(orderRequestDTO.getOrderID());
 
         //duplicate order
-        if(orderRepository.findByOrderId(orderRequestDTO.getOrderID()) != null){
+        if (orderRepository.findByOrderId(orderRequestDTO.getOrderID()) != null) {
 
             response.setSuccess(false);
 
@@ -113,7 +113,7 @@ public class OrderServiceImpl implements OrderService {
 
         Order order = orderRepository.findByOrderId(orderID);
 
-        if(order != null) {
+        if (order != null) {
 
             OrderConverter converter = new OrderConverter();
             order = converter.convertDtoToEntity(orderRequestDTO);

@@ -34,13 +34,13 @@ public class DeliveryTruck {
         ));
 
         deliveredItems.forEach(i -> {
-                    Item dbItem = itemRepository.findByName(i.getName());
-                    dbItem.setItemCount(dbItem.getItemCount() + i.getItemCount());
-                    itemRepository.save(dbItem);
-                });
+            Item dbItem = itemRepository.findByName(i.getName());
+            dbItem.setItemCount(dbItem.getItemCount() + i.getItemCount());
+            itemRepository.save(dbItem);
+        });
     }
 
-    public void deliverMap(Map<String, Integer> itemMap){
+    public void deliverMap(Map<String, Integer> itemMap) {
 
         logger.info(String.format("Delivery truck delivered the following items: [%s]",
                 itemMap.entrySet().stream()

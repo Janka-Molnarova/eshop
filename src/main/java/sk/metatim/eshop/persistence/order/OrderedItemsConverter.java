@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import sk.metatim.eshop.helper.DeliveryTruck;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
