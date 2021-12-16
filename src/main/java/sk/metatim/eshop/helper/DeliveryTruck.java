@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @Service
 public class DeliveryTruck {
 
-    private static Logger logger = LogManager.getLogger(DeliveryTruck.class);
+    private static final Logger logger = LogManager.getLogger(DeliveryTruck.class);
 
     @Autowired
     ItemRepository itemRepository;
@@ -43,9 +43,7 @@ public class DeliveryTruck {
     public void deliver(Map<String, Integer> itemMap) {
 
         logger.info(String.format("Delivery truck delivered the following items: [%s]",
-                itemMap.entrySet().stream()
-                        .map(Map.Entry::getKey)
-                        .collect(Collectors.joining(","))
+                String.join(",", itemMap.keySet())
         ));
 
         itemMap.forEach((key, value) -> {
