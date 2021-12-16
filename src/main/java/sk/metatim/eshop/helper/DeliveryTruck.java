@@ -40,7 +40,7 @@ public class DeliveryTruck {
         });
     }
 
-    public void deliverMap(Map<String, Integer> itemMap) {
+    public void deliver(Map<String, Integer> itemMap) {
 
         logger.info(String.format("Delivery truck delivered the following items: [%s]",
                 itemMap.entrySet().stream()
