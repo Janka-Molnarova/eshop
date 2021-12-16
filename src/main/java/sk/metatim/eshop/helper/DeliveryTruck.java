@@ -10,6 +10,7 @@ import sk.metatim.eshop.persistence.item.ItemRepository;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,11 +33,25 @@ public class DeliveryTruck {
                         .collect(Collectors.joining(","))
         ));
 
-        deliveredItems
-                .forEach(i -> {
+        deliveredItems.forEach(i -> {
                     Item dbItem = itemRepository.findByName(i.getName());
                     dbItem.setItemCount(dbItem.getItemCount() + i.getItemCount());
                     itemRepository.save(dbItem);
                 });
+    }
+
+    public void deliverMap(Map<String, Integer> itemMap){
+
+        logger.info(String.format("Delivery truck delivered the following items: [%s]",
+                itemMap.entrySet().stream()
+                        .map(Map.Entry::getKey)
+                        .collect(Collectors.joining(","))
+        ));
+
+        itemMap.forEach((key, value) -> {
+            Item dbItem = itemRepository.findByName(key);
+            dbItem.setItemCount(dbItem.getItemCount() + value);
+            itemRepository.save(dbItem);
+        });
     }
 }
