@@ -25,21 +25,21 @@ public class EshopApplication {
     public CommandLineRunner runStuff(OrderController orderController, DeliveryTruck truck) {
         return args -> {
 
-            Map<String, Integer> deliveredItems = new HashMap<>();
-            deliveredItems.put("tricko", 10);
-            deliveredItems.put("ponozky", 10);
-
-            truck.deliver(deliveredItems);
-
-            OrderRequestDTO dto = new OrderRequestDTO();
-            dto.setOrderID(UUID.randomUUID().toString());
-            dto.setCustomerID("b7654084-676b-4ce3-993f-5457b8cdf6b3");
-            Map<String, Integer> items = new HashMap<>();
-            items.put("ponozky", 5);
-            items.put("tricko", 3);
-            dto.setOrderedItems(items);
-
-            OrderResponseDTO response = orderController.addOrder(dto);
+//            Map<String, Integer> deliveredItems = new HashMap<>();
+//            deliveredItems.put("tricko", 10);
+//            deliveredItems.put("ponozky", 10);
+//
+//            truck.deliver(deliveredItems);
+//
+//            OrderRequestDTO dto = new OrderRequestDTO();
+//            dto.setOrderID(UUID.randomUUID().toString());
+//            dto.setCustomerID("b7654084-676b-4ce3-993f-5457b8cdf6b3");
+//            Map<String, Integer> items = new HashMap<>();
+//            items.put("ponozky", 5);
+//            items.put("tricko", 3);
+//            dto.setOrderedItems(items);
+//
+//            OrderResponseDTO response = orderController.addOrder(dto);
         };
     }
 }
