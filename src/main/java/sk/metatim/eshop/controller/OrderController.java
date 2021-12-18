@@ -4,9 +4,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import sk.metatim.eshop.dto.GetOrderResponseDTO;
-import sk.metatim.eshop.dto.OrderRequestDTO;
-import sk.metatim.eshop.dto.OrderResponseDTO;
+import sk.metatim.eshop.dto.order.GetOrderResponseDTO;
+import sk.metatim.eshop.dto.order.OrderRequestDTO;
+import sk.metatim.eshop.dto.order.OrderResponseDTO;
 import sk.metatim.eshop.service.OrderService;
 
 @RestController

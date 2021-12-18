@@ -1,9 +1,9 @@
 package sk.metatim.eshop.utils;
 
 import org.springframework.stereotype.Component;
-import sk.metatim.eshop.dto.GetOrderResponseDTO;
-import sk.metatim.eshop.dto.OrderRequestDTO;
-import sk.metatim.eshop.dto.OrderResponseDTO;
+import sk.metatim.eshop.dto.order.GetOrderResponseDTO;
+import sk.metatim.eshop.dto.order.OrderRequestDTO;
+import sk.metatim.eshop.dto.order.OrderResponseDTO;
 import sk.metatim.eshop.persistence.order.Order;
 
 @Component

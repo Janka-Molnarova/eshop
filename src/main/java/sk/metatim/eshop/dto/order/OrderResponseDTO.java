@@ -1,4 +1,4 @@
-package sk.metatim.eshop.dto;
+package sk.metatim.eshop.dto.order;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,15 +1,16 @@
-package sk.metatim.eshop.service;
+package sk.metatim.eshop.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sk.metatim.eshop.dto.GetOrderResponseDTO;
-import sk.metatim.eshop.dto.OrderRequestDTO;
-import sk.metatim.eshop.dto.OrderResponseDTO;
+import sk.metatim.eshop.dto.order.GetOrderResponseDTO;
+import sk.metatim.eshop.dto.order.OrderRequestDTO;
+import sk.metatim.eshop.dto.order.OrderResponseDTO;
 import sk.metatim.eshop.helper.OrderResponseMessage;
 import sk.metatim.eshop.persistence.item.Item;
 import sk.metatim.eshop.persistence.item.ItemRepository;
 import sk.metatim.eshop.persistence.order.Order;
 import sk.metatim.eshop.persistence.order.OrderRepository;
+import sk.metatim.eshop.service.OrderService;
 import sk.metatim.eshop.utils.OrderConverter;
 
 import java.util.Map;
