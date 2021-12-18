@@ -9,7 +9,7 @@ import sk.metatim.eshop.dto.OrderRequestDTO;
 import sk.metatim.eshop.dto.OrderResponseDTO;
 import sk.metatim.eshop.service.OrderService;
 
-@RestController
+@RestController("/order")
 public class OrderController {
 
     private static final Logger logger = LogManager.getLogger(OrderController.class);
@@ -25,7 +25,7 @@ public class OrderController {
     //            "tricko": 1
     //        }
     //    }
-    @PostMapping(value = "/addOrder")
+    @PostMapping(value = "/add")
     public OrderResponseDTO addOrder(@RequestBody OrderRequestDTO orderRequestDTO) {
 
         logger.info(String.format("Recieved request [%s][%s]",
@@ -43,7 +43,7 @@ public class OrderController {
         return response;
     }
 
-    @GetMapping(value = "/getOrder/{orderID}")
+    @GetMapping(value = "/get/{orderID}")
     public GetOrderResponseDTO getOrder(@PathVariable String orderID) {
 
         logger.info(String.format("Recieved request [%s][%s]",
@@ -61,7 +61,7 @@ public class OrderController {
         return response;
     }
 
-    @PostMapping(value = "/updateOrder/{orderID}")
+    @PostMapping(value = "/update/{orderID}")
     public void updateOrder(@PathVariable String orderID, @RequestBody OrderRequestDTO orderRequestDTO) {
 
         logger.info(String.format("Recieved request [%s][OrderId:%s][%s]",
@@ -72,7 +72,7 @@ public class OrderController {
         eshopService.updateOrder(orderID, orderRequestDTO);
     }
 
-    @PostMapping(value = "/deleteOrder/{orderID}")
+    @PostMapping(value = "/delete/{orderID}")
     public void deleteOrder(@PathVariable String orderID) {
 
         logger.info(String.format("Recieved request [%s][%s]",
