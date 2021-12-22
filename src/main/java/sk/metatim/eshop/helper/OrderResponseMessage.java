@@ -5,12 +5,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class OrderResponseMessage {
 
     private static Logger logger = LogManager.getLogger(OrderResponseMessage.class);
