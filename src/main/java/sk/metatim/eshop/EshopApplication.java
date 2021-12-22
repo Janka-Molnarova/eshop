@@ -4,6 +4,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import sk.metatim.eshop.controller.OrderController;
 import sk.metatim.eshop.dto.OrderRequestDTO;
 import sk.metatim.eshop.dto.OrderResponseDTO;
@@ -15,6 +16,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @SpringBootApplication
+@EnableScheduling
 public class EshopApplication {
 
     public static void main(String[] args) {
