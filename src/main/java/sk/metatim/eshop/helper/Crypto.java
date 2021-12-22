@@ -25,16 +25,19 @@ public class Crypto {
         try {
 
             MessageDigest digest = MessageDigest.getInstance("SHA-512");
+            digest.reset();
             digest.update(SALT.getBytes(StandardCharsets.UTF_8));
+
             byte[] bytes = digest.digest(password.getBytes(StandardCharsets.UTF_8));
             StringBuilder sb = new StringBuilder();
             for (byte aByte : bytes) {
                 sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
             }
+
             pwd = sb.toString();
 
         }catch(NoSuchAlgorithmException e){
-            logger.error("Unable to hash password: " + e.getMessage()); //todo: safe?
+            logger.error("Unable to hash password: " + e.getMessage());
             e.printStackTrace();
         }
 
