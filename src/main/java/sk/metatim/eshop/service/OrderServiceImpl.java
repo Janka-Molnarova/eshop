@@ -12,6 +12,7 @@ import sk.metatim.eshop.persistence.order.Order;
 import sk.metatim.eshop.persistence.order.OrderRepository;
 import sk.metatim.eshop.utils.OrderConverter;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -144,5 +145,14 @@ public class OrderServiceImpl implements OrderService {
         order.setItems(request.getOrderedItems());
 
         orderRepository.save(order);
+    }
+
+    @Override
+    public List<GetOrderResponseDTO> getFailedOrders() {
+        List<Order> enties = orderRepository.findAllBySuccessIsFalse();
+        if (enties != null) {
+            return orderConverter.convertEntitiesToGetDTOList(enties);
+        }
+        return null;
     }
 }
