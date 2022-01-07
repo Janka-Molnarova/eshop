@@ -15,8 +15,8 @@ public class NewOrdersJob {
     @Autowired
     NewOrdersService newOrdersService;
 
-    @Scheduled(cron = "*/3 * * * * *")
-    public void pingMe(){
-        logger.info("ping");
-    }
+//    @Scheduled(cron = "*/3 * * * * *")
+//    public void pingMe(){
+//        logger.info("ping");
+//    }
 }
