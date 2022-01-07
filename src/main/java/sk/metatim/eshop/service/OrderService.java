@@ -4,6 +4,8 @@ import sk.metatim.eshop.dto.GetOrderResponseDTO;
 import sk.metatim.eshop.dto.OrderRequestDTO;
 import sk.metatim.eshop.dto.OrderResponseDTO;
 
+import java.util.List;
+
 public interface OrderService {
 
     public OrderResponseDTO addOrder(OrderRequestDTO orderRequestDTO);
@@ -13,5 +15,7 @@ public interface OrderService {
     public boolean updateOrder(String orderID, OrderRequestDTO orderRequestDTO);
 
     public void deleteOrder(String orderID);
+
+    public List<GetOrderResponseDTO> getFailedOrders();
 
 }

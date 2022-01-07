@@ -6,6 +6,9 @@ import sk.metatim.eshop.dto.OrderRequestDTO;
 import sk.metatim.eshop.dto.OrderResponseDTO;
 import sk.metatim.eshop.persistence.order.Order;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class OrderConverter {
 
@@ -41,5 +44,13 @@ public class OrderConverter {
         dto.setPrice(order.getPrice());
 
         return dto;
+    }
+    
+    public List<GetOrderResponseDTO> convertEntitiesToGetDTOList(List<Order> orders) {
+        List<GetOrderResponseDTO> dtoList = new ArrayList<>();
+        for (Order order: orders) {
+            dtoList.add(convertEntityToGetDTO(order));
+        }
+        return dtoList;
     }
 }
