@@ -35,12 +35,12 @@ public class OrdersItemsJobs {
     @Scheduled(cron = "*/3 * * * * *")
     public void failedOrders() {
         List<GetOrderResponseDTO> failedOrders = orderService.getFailedOrders();
-        logger.info("Neuspesne objednavky: " + failedOrders);
+        logger.debug("Neuspesne objednavky: " + failedOrders);
     }
 
     @Scheduled(cron = "*/3 * * * * *")
     public void fewPiecesInWarehouse() {
         List<GetItemDTO> items = itemService.getFewPiecesInWarehouse(3);
-        logger.info("Na sklade je uz len zopar ks z poloziek: " + items);
+        logger.debug("Na sklade je uz len zopar ks z poloziek: " + items);
     }
 }
