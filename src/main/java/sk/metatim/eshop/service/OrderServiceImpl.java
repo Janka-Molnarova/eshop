@@ -34,16 +34,12 @@ public class OrderServiceImpl implements OrderService {
 
         OrderResponseDTO response = new OrderResponseDTO();
         response.setOrderID(orderRequestDTO.getOrderID());
-
         //duplicate order
         if (orderRepository.findByOrderId(orderRequestDTO.getOrderID()) != null) {
-
             response.setSuccess(false);
-
             OrderResponseMessage orm = new OrderResponseMessage();
             orm.setMessage(OrderResponseMessage.DUPLICATE_ORDER);
             response.setMessage(orm);
-
             return response;
         }
 
@@ -69,18 +65,13 @@ public class OrderServiceImpl implements OrderService {
 
         //some items are not present
         if (itemsNotPresent.entrySet().size() > 0) {
-
             response.setSuccess(false);
-
             OrderResponseMessage orm = new OrderResponseMessage();
             orm.setMessage(OrderResponseMessage.NOT_ENOUGH_ITEMS);
             orm.setDetails(orm.mapObjectoJson(itemsNotPresent));
             response.setMessage(orm);
-
         } else { //everything is available
-
             response.setSuccess(true);
-
             response.setMessage(OrderResponseMessage.getOK());
             double price = orderRequestDTO.getOrderedItems().entrySet().stream()
                     .mapToDouble(e -> {
@@ -93,10 +84,7 @@ public class OrderServiceImpl implements OrderService {
             response.setPrice(price);
         }
 
-        //store order
         storeOrder(response, orderRequestDTO);
-
-        //return response
         return response;
     }
 
