@@ -6,14 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import sk.metatim.eshop.controller.OrderController;
-import sk.metatim.eshop.dto.OrderRequestDTO;
-import sk.metatim.eshop.dto.OrderResponseDTO;
 import sk.metatim.eshop.helper.DeliveryTruck;
-import sk.metatim.eshop.persistence.item.Item;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 
 @SpringBootApplication
 @EnableScheduling
