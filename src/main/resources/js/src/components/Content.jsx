@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
+import React from 'react';
 import Welcome from "./content/Welcome";
 
-class Content extends Component {
+function Content() {
 
-    getContentWidth = () => {
+    const getContentWidth = () => {
         // const width = window.innerWidth;
         // const panelWidth = document.getElementById("left-panel").clientWidth;
         // return width - (panelWidth + 100);
@@ -11,13 +11,11 @@ class Content extends Component {
         return window.innerWidth - (200 + 100 + 40); //panel + space + padding
     }
 
-    render = () => {
-        return <>
-            <div id="content" className="panel" style={{width: this.getContentWidth()}}>
-                <Welcome/>
-            </div>
-        </>
-    }
+    return <>
+        <div id="content" className="panel" style={{width: getContentWidth()}}>
+            <Welcome/>
+        </div>
+    </>
 }
 
 export default Content
