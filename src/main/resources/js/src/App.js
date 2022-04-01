@@ -7,14 +7,12 @@ import LeftPanel from "./components/LeftPanel";
 
 function App() {
 
-    const screenWidth = 1920;
-
     return (
         <Router>
             <div className="app">
                 <TopPanel/>
                 <LeftPanel/>
-                <Content {...screenWidth}/>
+                <Content/>
             </div>
         </Router>
     );

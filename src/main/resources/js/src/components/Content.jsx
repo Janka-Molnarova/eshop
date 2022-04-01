@@ -1,7 +1,7 @@
 import React from 'react';
 import Welcome from "./content/Welcome";
 
-function Content() {
+function Content(props) {
 
     const getContentWidth = () => {
         // const width = window.innerWidth;
