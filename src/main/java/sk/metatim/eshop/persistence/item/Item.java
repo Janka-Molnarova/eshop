@@ -5,11 +5,12 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
-@ToString
+//@ToString
 @Table(name = "items")
 public class Item {
 
@@ -23,4 +24,7 @@ public class Item {
 
     @Column(name = "item_count")
     int itemCount;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    List<Sizes> sizes;
 }
